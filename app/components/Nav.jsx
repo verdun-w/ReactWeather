@@ -4,7 +4,14 @@ var {Link, IndexLink} = require('react-router');
 var Nav = React.createClass({
     onSearch: function (e) {
         e.preventDefault();
-        alert("Not wired up yet.");
+
+        var location = this.refs.location.value;
+        location = encodeURIComponent(location);
+
+        if (location.length > 0) {
+            this.refs.location.value = '';
+            window.location.hash = '#/?location=' + location;
+        }
     },
     render: function () {
         return (
@@ -20,7 +27,7 @@ var Nav = React.createClass({
                 <div className="top-bar-right">
                     <form onSubmit={this.onSearch}>
                         <ul className="menu">
-                            <li><input type="search" placeholder="Search Weather"/></li>
+                            <li><input type="search" placeholder="Search Weather" ref="location"/></li>
                             <li><input type="submit" className="button" value="Get Weather"/></li>
                         </ul>
                     </form>
